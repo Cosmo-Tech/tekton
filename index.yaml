@@ -1,0 +1,58 @@
+apiVersion: v1
+entries:
+  modeling-api-deployment:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-12-23T08:00:00.427888619Z"
+    description: A Helm chart for Modeling API deploymen with Tekton
+    digest: 2547502a6680c8058b531bdc12a19a9a1d38d8018cb556a0d65c4aeca7383739
+    name: modeling-api-deployment
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/modeling-api-deployment-0.1.21/modeling-api-deployment-0.1.21.tgz
+    version: 0.1.21
+  tekton-dashboard:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-12-23T08:00:00.615153246Z"
+    description: A Helm chart for Tekton Dashboard
+    digest: d3cd4ff7f41692ba2cede9bcc948e99d932f03ccef2951ceb2a90911e14a3268
+    name: tekton-dashboard
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-dashboard-0.1.21/tekton-dashboard-0.1.21.tgz
+    version: 0.1.21
+  tekton-interceptors:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-12-23T08:00:00.791574954Z"
+    description: A Helm chart for Tekton interceptors
+    digest: c1a1a5a3522183966b9126c3b05426089e25d8e5fea6f59b539606a224a3f0c2
+    name: tekton-interceptors
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-interceptors-0.1.21/tekton-interceptors-0.1.21.tgz
+    version: 0.1.21
+  tekton-pipelines:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-12-23T08:00:01.013435222Z"
+    description: A Helm chart for Tekton Pipelines
+    digest: 7f21cb7ab55696901dcb604e15d66a3b5213901f300262a032a25134d4e3c77e
+    name: tekton-pipelines
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-pipelines-0.1.21/tekton-pipelines-0.1.21.tgz
+    version: 0.1.21
+  tekton-triggers:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-12-23T08:00:01.359570485Z"
+    description: A Helm chart for Tekton triggers
+    digest: 6ed1cf48160bf7334ad1f2448636e1fc3c0dd7f681b9f1bc4bfb1750826815cc
+    name: tekton-triggers
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-triggers-0.1.21/tekton-triggers-0.1.21.tgz
+    version: 0.1.21
+generated: "2024-12-23T08:00:01.359576867Z"
