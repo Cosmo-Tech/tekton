@@ -3,6 +3,16 @@ entries:
   modeling-api-deployment:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-12-24T11:23:02.032728065Z"
+    description: A Helm chart for Modeling API deploymen with Tekton
+    digest: 81bf3719f600387e5f11864e7c0a5fd05a9787e95408dbe33e282a0bad84221c
+    name: modeling-api-deployment
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/modeling-api-deployment-0.1.22/modeling-api-deployment-0.1.22.tgz
+    version: 0.1.22
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-12-23T08:00:00.427888619Z"
     description: A Helm chart for Modeling API deploymen with Tekton
     digest: 2547502a6680c8058b531bdc12a19a9a1d38d8018cb556a0d65c4aeca7383739
@@ -12,6 +22,16 @@ entries:
     - https://github.com/Cosmo-Tech/tekton/releases/download/modeling-api-deployment-0.1.21/modeling-api-deployment-0.1.21.tgz
     version: 0.1.21
   tekton-dashboard:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-12-24T11:23:02.138556162Z"
+    description: A Helm chart for Tekton Dashboard
+    digest: 8a79e01da8e1a7ed78c9490beba2339dacd4f43dbbbae12f40652aebcd37e45e
+    name: tekton-dashboard
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-dashboard-0.1.22/tekton-dashboard-0.1.22.tgz
+    version: 0.1.22
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2024-12-23T08:00:00.615153246Z"
@@ -25,6 +45,16 @@ entries:
   tekton-interceptors:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-12-24T11:23:02.254238899Z"
+    description: A Helm chart for Tekton interceptors
+    digest: 7af2667a4f6daf1c8f0220caba542c4b9ebd36ff623fb75923cb932c6117b242
+    name: tekton-interceptors
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-interceptors-0.1.22/tekton-interceptors-0.1.22.tgz
+    version: 0.1.22
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-12-23T08:00:00.791574954Z"
     description: A Helm chart for Tekton interceptors
     digest: c1a1a5a3522183966b9126c3b05426089e25d8e5fea6f59b539606a224a3f0c2
@@ -34,6 +64,16 @@ entries:
     - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-interceptors-0.1.21/tekton-interceptors-0.1.21.tgz
     version: 0.1.21
   tekton-pipelines:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-12-24T11:23:02.385584998Z"
+    description: A Helm chart for Tekton Pipelines
+    digest: dc65dae48a6a6973c0c522657146d2c6b525fcff0a53029f2dad805ab5eb71fa
+    name: tekton-pipelines
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-pipelines-0.1.22/tekton-pipelines-0.1.22.tgz
+    version: 0.1.22
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2024-12-23T08:00:01.013435222Z"
@@ -47,6 +87,16 @@ entries:
   tekton-triggers:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-12-24T11:23:02.534760243Z"
+    description: A Helm chart for Tekton triggers
+    digest: e3294c012cd81d4b076c5b18bc041224a8a5a47f9cb0f700b059cd23e0739b1c
+    name: tekton-triggers
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-triggers-0.1.22/tekton-triggers-0.1.22.tgz
+    version: 0.1.22
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-12-23T08:00:01.359570485Z"
     description: A Helm chart for Tekton triggers
     digest: 6ed1cf48160bf7334ad1f2448636e1fc3c0dd7f681b9f1bc4bfb1750826815cc
@@ -55,4 +105,4 @@ entries:
     urls:
     - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-triggers-0.1.21/tekton-triggers-0.1.21.tgz
     version: 0.1.21
-generated: "2024-12-23T08:00:01.359576867Z"
+generated: "2024-12-24T11:23:02.534793866Z"
