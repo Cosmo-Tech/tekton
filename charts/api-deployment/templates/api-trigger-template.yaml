@@ -31,3 +31,12 @@ spec:
       pipelineRef:
         name: {{ include "api-deployment.fullname" . }}-api-pipeline
       serviceAccountName: {{ include "api-deployment.fullname" . }}-tekton-sa
+      podTemplate:
+        {{- with .Values.tolerations }}
+        tolerations:
+            {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.nodeSelector }}
+        nodeSelector:
+            {{- toYaml . | nindent 10 }}
+        {{- end }}
