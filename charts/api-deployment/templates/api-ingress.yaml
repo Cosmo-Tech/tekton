@@ -27,7 +27,7 @@ spec:
             name: el-{{ include "api-deployment.fullname" . }}-api-github-listener
             port:
               number: 8080
-        path: /tekton/
+        path: /{{ .Values.host_path_context }}/
         pathType: Prefix
   tls:
   - hosts:
