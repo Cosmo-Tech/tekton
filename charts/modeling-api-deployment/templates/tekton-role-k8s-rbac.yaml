@@ -99,3 +99,19 @@ rules:
   - horizontalpodautoscalers
   verbs:
   - list
+- apiGroups: 
+  - networking.k8s.io
+  resources: 
+  - networkpolicies
+  verbs: 
+  - get
+  - list
+  - watch
+- apiGroups: 
+  - ""
+  resources: 
+  - serviceaccounts
+  verbs: 
+  - get
+  - list
+  - watch
