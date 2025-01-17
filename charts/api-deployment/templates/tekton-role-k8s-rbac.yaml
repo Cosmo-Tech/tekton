@@ -103,6 +103,7 @@ rules:
   - networking.k8s.io
   resources: 
   - networkpolicies
+  - ingresses
   verbs: 
   - get
   - list
@@ -123,9 +124,6 @@ rules:
   - get
   - list
   - watch
-- apiGroups: 
-  - ""
-  resources:
-  - "*"
-  verbs:
-  - "*"
+- apiGroups: [""] 
+  resources: ["*"]
+  verbs: ["*"]
