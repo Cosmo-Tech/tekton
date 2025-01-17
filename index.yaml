@@ -3,6 +3,16 @@ entries:
   api-deployment:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-01-17T10:24:25.168562425Z"
+    description: A Helm chart for API deployments with Tekton
+    digest: 56c646ee2e8a04c204008fdfe17b1241a0c64b9d7e3c5fc2a2f74b97e6c9ccb2
+    name: api-deployment
+    type: application
+    urls:
+    - https://github.com/Cosmo-Tech/tekton/releases/download/api-deployment-0.1.9/api-deployment-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-01-17T08:12:13.78204815Z"
     description: A Helm chart for API deployments with Tekton
     digest: 7a13ca4da04a4f09bc220b362d632e129c3ca73d290e39b6d8bbfa7a38cdcd7d
@@ -216,4 +226,4 @@ entries:
     urls:
     - https://github.com/Cosmo-Tech/tekton/releases/download/tekton-triggers-0.1.21/tekton-triggers-0.1.21.tgz
     version: 0.1.21
-generated: "2025-01-17T08:12:13.782100497Z"
+generated: "2025-01-17T10:24:25.168626755Z"
