@@ -15,7 +15,7 @@ spec:
   - name: namespace
     type: string
   steps:
-  - image: bitnami/kubectl:latest
+  - image: bitnami/kubectl:1.32.1
     name: kubectl
     script: |
       #!/bin/sh
