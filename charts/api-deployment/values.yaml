@@ -16,3 +16,5 @@ chart_version: your_chart_version
 nodeSelector:
   "cosmotech.com/tier": "tekton"
   "kubernetes.io/os": "linux"
+ingress_type: ""
+ngrok_host: ""

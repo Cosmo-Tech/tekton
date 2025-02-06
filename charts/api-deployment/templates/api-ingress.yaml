@@ -2,24 +2,34 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "api-deployment.fullname" . }}-api-ingress
-  labels:
-    owner: csm-platform
-  {{- include "api-deployment.labels" . | nindent 4 }}
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    email: platform@cosmotech.com
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "30"
-    nginx.ingress.kubernetes.io/rewrite-target: $1/$2
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.org/client-max-body-size: "0"
+  {{ if ne .Values.ingress_type "ngrok" }}
+    labels:
+      owner: csm-platform
+    {{- include "api-deployment.labels" . | nindent 4 }}
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      email: platform@cosmotech.com
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "30"
+      nginx.ingress.kubernetes.io/rewrite-target: $1/$2
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.org/client-max-body-size: "0"
+  {{ end }}
 spec:
-  ingressClassName: nginx
+  {{ if eq .Values.ingress_type "ngrok"}}
+    ingressClassName: ngrok
+  {{ else }}
+    ingressClassName: nginx
+  {{ end }}
   rules:
-  - host: {{ .Values.host }}
+  {{ if eq .Values.ingress_type "ngrok"}}
+    - host: {{ .Values.ngrok_host }}
+  {{ else }}
+    - host: {{ .Values.host }}
+  {{ end }}
     http:
       paths:
       - backend:
@@ -29,7 +39,9 @@ spec:
               number: 8080
         path: /{{ .Values.host_path_context }}/
         pathType: Prefix
-  tls:
-  - hosts:
-    - {{ .Values.host }}
-    secretName: {{ include "api-deployment.fullname" . }}-tekton-secret
+  {{ if ne .Values.ingress_type "ngrok" }}
+    tls:
+    - hosts:
+      - {{ .Values.host }}
+      secretName: {{ include "api-deployment.fullname" . }}-tekton-secret
+  {{ end }}
