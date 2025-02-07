@@ -1,0 +1,20 @@
+kubernetesClusterDomain: cluster.local
+apiConfig:
+  configYaml: api-config
+ApiGithubWebhookSecret:
+  secretToken: "example"
+ApiDockerSecret:
+  dockerconfigjson: "example"
+tektonSa:
+  serviceAccount:
+    annotations: {}
+host: your_host_name
+host_path_context: your_host_path_context
+registry_url: your_registry_url
+chart_name: your_chart_name
+chart_version: your_chart_version
+nodeSelector:
+  "cosmotech.com/tier": "tekton"
+  "kubernetes.io/os": "linux"
+ingress_type: ""
+ngrok_host: "123.com"
