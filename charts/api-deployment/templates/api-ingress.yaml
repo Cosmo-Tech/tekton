@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "api-deployment.fullname" . }}-api-ingress
+{{ if ne .Values.ingress_type "ngrok" }}
   labels:
     owner: csm-platform
   {{- include "api-deployment.labels" . | nindent 4 }}
@@ -16,10 +17,19 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: $1/$2
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.org/client-max-body-size: "0"
+{{ end }}
 spec:
+{{ if eq .Values.ingress_type "ngrok" }}
+  ingressClassName: ngrok
+{{ else }}
   ingressClassName: nginx
+{{ end }}
   rules:
+{{ if eq .Values.ingress_type "ngrok" }}
+  - host: {{ .Values.ngrok_host }}
+{{ else }}
   - host: {{ .Values.host }}
+{{ end }}
     http:
       paths:
       - backend:
@@ -29,7 +39,9 @@ spec:
               number: 8080
         path: /{{ .Values.host_path_context }}/
         pathType: Prefix
+{{ if ne .Values.ingress_type "ngrok" }}
   tls:
   - hosts:
     - {{ .Values.host }}
     secretName: {{ include "api-deployment.fullname" . }}-tekton-secret
+{{ end }}
