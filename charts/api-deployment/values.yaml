@@ -18,3 +18,4 @@ nodeSelector:
   "kubernetes.io/os": "linux"
 ingress_type: ""
 ngrok_host: ""
+helm_chart_pull_type: "oci"
