@@ -15,6 +15,8 @@ spec:
   - description: Namespace where the chart will be deployed
     name: namespace
     type: string
+  - name: helm_chart_pull_type
+    type: string
   tasks:
   - name: tekton-task
     params:
@@ -26,5 +28,7 @@ spec:
       value: $(params.chart_version)
     - name: namespace
       value: $(params.namespace)
+    - name: helm_chart_pull_type
+      value: $(params.helm_chart_pull_type)
     taskRef:
       name: {{ include "api-deployment.fullname" . }}-tekton-task

@@ -16,3 +16,5 @@ spec:
     value: {{ .Values.chart_version }}
   - name: namespace
     value: {{ .Release.Namespace }}
+  - name: helm_chart_pull_type
+    value: {{ .Values.helm_chart_pull_type }}
