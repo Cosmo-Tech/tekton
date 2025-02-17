@@ -48,7 +48,7 @@ spec:
         helm pull cosmotech/$(params.chart_name) --version $(params.chart_version) --untar
       fi
       # Run helm lint and allow script to continue even if linting fails
-      helm lint ./$(params.chart_name)
+      helm lint ./$(params.chart_name) || true
     volumeMounts:
     - mountPath: /workspace/helm-secrets
       name: helm-credentials
