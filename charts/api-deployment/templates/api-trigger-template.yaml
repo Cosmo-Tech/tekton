@@ -30,7 +30,7 @@ spec:
       - name: namespace
         value: $(tt.params.namespace)
       - name: helm_chart_pull_type
-        value: $(tt.helm_chart_pull_type)
+        value: $(tt.params.helm_chart_pull_type)
       pipelineRef:
         name: {{ include "api-deployment.fullname" . }}-api-pipeline
       serviceAccountName: {{ include "api-deployment.fullname" . }}-tekton-sa
