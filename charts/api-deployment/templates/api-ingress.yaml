@@ -34,7 +34,8 @@ spec:
       paths:
       - backend:
           service:
-            name: el-{{ include "api-deployment.fullname" . }}-api-github-listener
+            #name: el-{{ include "api-deployment.fullname" . }}-api-github-listener
+            name: el-{{ include "api-deployment.fullname" . | trunc 50 | trimSuffix "-" }}-api-github-listener
             port:
               number: 8080
         path: /{{ .Values.host_path_context }}/
