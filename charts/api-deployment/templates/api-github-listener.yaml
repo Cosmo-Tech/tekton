@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: {{ include "api-deployment.fullname" . }}-api-github-listener
+  name: el-{{ include "api-deployment.fullname" . | trunc 50 | trimSuffix "-" }}-listener
   labels:
   {{- include "api-deployment.labels" . | nindent 4 }}
 spec:
