@@ -1,34 +1,70 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: {{ include "api-deployment.fullname" . }}-api-pipeline
+  name: {{ include "api-deployment.fullname" . }}-pipeline
   labels:
   {{- include "api-deployment.labels" . | nindent 4 }}
 spec:
   params:
-  - name: registryUrl
-    type: string
-  - name: chartName
-    type: string
-  - name: chartVersion
-    type: string
-  - description: Namespace where the chart will be deployed
-    name: namespace
-    type: string
-  - name: helmChartPullType
-    type: string
-  tasks:
-  - name: tekton-task
-    params:
     - name: registryUrl
-      value: $(params.registryUrl)
+      type: string
     - name: chartName
-      value: $(params.chartName)
+      type: string
     - name: chartVersion
-      value: $(params.chartVersion)
+      type: string
     - name: namespace
-      value: $(params.namespace)
+      type: string
     - name: helmChartPullType
-      value: $(params.helmChartPullType)
-    taskRef:
-      name: {{ include "api-deployment.fullname" . }}-tekton-task
+      type: string
+    - name: webAppRepoUrl
+      type: string
+    - name: webAppRevision
+      type: string
+    - name: cypressBaseUrl
+      type: string
+    - name: authKeycloakRealm
+      type: string
+    - name: authKeycloakClientId
+      type: string
+    - name: authKeycloakClientSecret
+      type: string
+    - name: runCypressTests   # ➡️ New parameter to control Cypress execution
+      type: string
+      default: "false"
+  tasks:
+    - name: deployApi
+      params:
+        - name: registryUrl
+          value: $(params.registryUrl)
+        - name: chartName
+          value: $(params.chartName)
+        - name: chartVersion
+          value: $(params.chartVersion)
+        - name: namespace
+          value: $(params.namespace)
+        - name: helmChartPullType
+          value: $(params.helmChartPullType)
+      taskRef:
+        name: {{ include "api-deployment.fullname" . }}-tekton-task
+    - name: runCypressTests
+      runAfter:
+        - deployApi
+      when:
+        - input: $(params.runCypressTests)
+          operator: in
+          values: ["true"]  # ➡️ Runs only if `runCypressTests` is "true"
+      params:
+        - name: webAppRepoUrl
+          value: $(params.webAppRepoUrl)
+        - name: webAppRevision
+          value: $(params.webAppRevision)
+        - name: cypressBaseUrl
+          value: $(params.cypressBaseUrl)
+        - name: authKeycloakRealm
+          value: $(params.authKeycloakRealm)
+        - name: authKeycloakClientId
+          value: $(params.authKeycloakClientId)
+        - name: authKeycloakClientSecret
+          value: $(params.authKeycloakClientSecret)
+      taskRef:
+        name: {{ include "api-deployment.fullname" . }}-cypress-tests

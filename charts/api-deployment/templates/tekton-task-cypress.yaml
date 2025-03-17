@@ -1,0 +1,68 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: {{ include "api-deployment.fullname" . }}-cypress-tests
+  labels:
+  {{- include "api-deployment.labels" . | nindent 4 }}
+spec:
+  params:
+    - name: webAppRepoUrl
+      description: The Git repository URL to clone
+      type: string
+    - name: webAppRevision
+      description: The Git revision to check out
+      type: string
+    - name: cypressBaseUrl
+      description: The base URL for the Cypress tests
+      type: string
+    - name: authKeycloakRealm
+      description: The Keycloak realm URL
+      type: string
+    - name: authKeycloakClientId
+      description: The Keycloak client ID
+      type: string
+    - name: authKeycloakClientSecret
+      description: The Keycloak client secret
+      type: string
+  steps:
+  - image: ghcr.io/cosmo-tech/cypress-tests:0.0.1
+    securityContext:
+      runAsUser: 0
+      capabilities:
+        add: ["SYS_RESOURCE"]
+    imagePullPolicy: Always
+    env:
+      - name: CYPRESS_DISABLE_OOM
+        value: "1"
+      - name: ELECTRON_EXTRA_LAUNCH_ARGS
+        value: "--disable-dev-shm-usage --no-sandbox"
+    name: cypress-tests
+    script: |
+      #!/bin/sh
+      set -ex
+      # Clone the repo
+      git clone --depth=1 --branch "$(params.webAppRevision)" "$(params.webAppRepoUrl)" /workspace/workspace/repo
+      cd /workspace/workspace/repo/cypress
+      yarn install
+      cd ..
+      export NO_COLOR=1
+      export CYPRESS_AUTHENTICATE_WITH_SERVICE_ACCOUNT=1
+      export CYPRESS_BASE_URL="$(params.cypressBaseUrl)"  # Replace with actual URL
+      export SPEC_OPTION=""  # Replace with actual spec file or leave empty
+      COMMON_CYPRESS_COMMAND="node_modules/.bin/cypress run --reporter cypress-mochawesome-reporter $SPEC_OPTION"
+      export CY_AUTH_KEYCLOAK_REALM="$(params.authKeycloakRealm)"
+      export CY_AUTH_KEYCLOAK_CLIENT_ID="$(params.authKeycloakClientId)"
+      export CY_AUTH_KEYCLOAK_CLIENT_SECRET="$(params.authKeycloakClientSecret)"
+      $COMMON_CYPRESS_COMMAND
+    volumeMounts:
+    - mountPath: /workspace/helm-values
+      name: helm-values-volume
+    - mountPath: /workspace/helm-secrets
+      name: helm-credentials
+  volumes:
+  - name: helm-credentials
+    secret:
+      secretName: {{ include "api-deployment.fullname" . }}-api-docker-secret
+  - name: helm-values-volume
+    configMap:
+      name: {{ include "api-deployment.fullname" . }}-api-config

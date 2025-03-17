@@ -6,15 +6,29 @@ metadata:
   {{- include "api-deployment.labels" . | nindent 4 }}
 spec:
   params:
-  - name: action
-    value: $(body.action)
-  - name: registryUrl
-    value: {{ .Values.registryUrl }}
-  - name: chartName
-    value: {{ .Values.chartName }}
-  - name: chartVersion
-    value: {{ .Values.chartVersion }}
-  - name: namespace
-    value: {{ .Release.Namespace }}
-  - name: helmChartPullType
-    value: {{ .Values.helmChartPullType }}
+    - name: action
+      value: $(body.action)
+    - name: registryUrl
+      value: {{ .Values.registryUrl }}
+    - name: chartName
+      value: {{ .Values.chartName }}
+    - name: chartVersion
+      value: {{ .Values.chartVersion }}
+    - name: namespace
+      value: {{ .Release.Namespace }}
+    - name: helmChartPullType
+      value: {{ .Values.helmChartPullType }}
+    - name: webAppRepoUrl
+      value: {{ .Values.webAppRepoUrl }}
+    - name: webAppRevision
+      value: {{ .Values.webAppRevision }}
+    - name: cypressBaseUrl
+      value: {{ .Values.cypressBaseUrl }}
+    - name: authKeycloakRealm
+      value: {{ .Values.authKeycloakRealm }}
+    - name: authKeycloakClientId
+      value: {{ .Values.authKeycloakClientId }}
+    - name: authKeycloakClientSecret
+      value: {{ .Values.authKeycloakClientSecret }}
+    - name: runCypressTests  # Add the flag for conditional execution
+      value: {{ .Values.runCypressTests | default "false" }}

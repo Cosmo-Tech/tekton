@@ -6,40 +6,61 @@ metadata:
   {{- include "api-deployment.labels" . | nindent 4 }}
 spec:
   params:
-  - name: registryUrl
-  - name: chartName
-  - name: chartVersion
-  - name: namespace
-  - name: helmChartPullType
+    - name: registryUrl
+    - name: chartName
+    - name: chartVersion
+    - name: namespace
+    - name: helmChartPullType
+    - name: webAppRepoUrl         # Added missing parameter
+    - name: webAppRevision        # Added missing parameter
+    - name: cypressBaseUrl        # Added missing parameter
+    - name: authKeycloakRealm     # Added missing parameter
+    - name: authKeycloakClientId  # Added missing parameter
+    - name: authKeycloakClientSecret # Added missing parameter
+    - name: runCypressTests       # Added missing parameter
   resourcetemplates:
-  - apiVersion: tekton.dev/v1beta1
-    kind: PipelineRun
-    metadata:
-      generateName: api-pipeline-run-
-      namespace: {{ .Release.Namespace }}
-    spec:
-      params:
-      - name: action
-        value: $(tt.body.action)
-      - name: registryUrl
-        value: $(tt.params.registryUrl)
-      - name: chartName
-        value: $(tt.params.chartName)
-      - name: chartVersion
-        value: $(tt.params.chartVersion)
-      - name: namespace
-        value: $(tt.params.namespace)
-      - name: helmChartPullType
-        value: $(tt.params.helmChartPullType)
-      pipelineRef:
-        name: {{ include "api-deployment.fullname" . }}-api-pipeline
-      serviceAccountName: {{ include "api-deployment.fullname" . }}-tekton-sa
-      podTemplate:
-        {{- with .Values.tolerations }}
-        tolerations:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: api-pipeline-run-
+        namespace: {{ .Release.Namespace }}
+      spec:
+        params:
+          - name: action
+            value: $(tt.body.action)
+          - name: registryUrl
+            value: $(tt.params.registryUrl)
+          - name: chartName
+            value: $(tt.params.chartName)
+          - name: chartVersion
+            value: $(tt.params.chartVersion)
+          - name: namespace
+            value: $(tt.params.namespace)
+          - name: helmChartPullType
+            value: $(tt.params.helmChartPullType)
+          - name: webAppRepoUrl
+            value: $(tt.params.webAppRepoUrl)    # Added missing parameter
+          - name: webAppRevision
+            value: $(tt.params.webAppRevision)   # Added missing parameter
+          - name: cypressBaseUrl
+            value: $(tt.params.cypressBaseUrl)   # Added missing parameter
+          - name: authKeycloakRealm
+            value: $(tt.params.authKeycloakRealm) # Added missing parameter
+          - name: authKeycloakClientId
+            value: $(tt.params.authKeycloakClientId) # Added missing parameter
+          - name: authKeycloakClientSecret
+            value: $(tt.params.authKeycloakClientSecret) # Added missing parameter
+          - name: runCypressTests
+            value: $(tt.params.runCypressTests) # Added missing parameter
+        pipelineRef:
+          name: {{ include "api-deployment.fullname" . }}-pipeline
+        serviceAccountName: {{ include "api-deployment.fullname" . }}-tekton-sa
+        podTemplate:
+          {{- with .Values.tolerations }}
+          tolerations:
             {{- toYaml . | nindent 10 }}
-        {{- end }}
-        {{- with .Values.nodeSelector }}
-        nodeSelector:
+          {{- end }}
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
             {{- toYaml . | nindent 10 }}
-        {{- end }}
+          {{- end }}
