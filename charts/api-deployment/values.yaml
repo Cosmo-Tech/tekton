@@ -1,21 +1,21 @@
 kubernetesClusterDomain: cluster.local
 apiConfig:
-  configYaml: api-config
-ApiGithubWebhookSecret:
+  configYaml: apiConfig
+apiGithubWebhookSecret:
   secretToken: ""
-ApiDockerSecret:
+apiDockerSecret:
   dockerconfigjson: ""
 tektonSa:
   serviceAccount:
     annotations: {}
-host: your_host_name
-host_path_context: your_host_path_context
-registry_url: your_registry_url
-chart_name: your_chart_name
-chart_version: your_chart_version
+host: yourHostName
+hostPathContext: yourHostPathContext
+registryUrl: yourRegistryUrl
+chartName: yourChartName
+chartVersion: yourChartVersion
 nodeSelector:
   "cosmotech.com/tier": "tekton"
   "kubernetes.io/os": "linux"
-ingress_type: ""
-ngrok_host: ""
-helm_chart_pull_type: "oci"
+ingressType: ""
+ngrokHost: ""
+helmChartPullType: "oci"

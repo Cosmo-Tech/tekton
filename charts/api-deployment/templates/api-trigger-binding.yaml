@@ -8,13 +8,13 @@ spec:
   params:
   - name: action
     value: $(body.action)
-  - name: registry_url
-    value: {{ .Values.registry_url }}
-  - name: chart_name
-    value: {{ .Values.chart_name }}
-  - name: chart_version
-    value: {{ .Values.chart_version }}
+  - name: registryUrl
+    value: {{ .Values.registryUrl }}
+  - name: chartName
+    value: {{ .Values.chartName }}
+  - name: chartVersion
+    value: {{ .Values.chartVersion }}
   - name: namespace
     value: {{ .Release.Namespace }}
-  - name: helm_chart_pull_type
-    value: {{ .Values.helm_chart_pull_type }}
+  - name: helmChartPullType
+    value: {{ .Values.helmChartPullType }}

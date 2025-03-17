@@ -6,29 +6,29 @@ metadata:
   {{- include "api-deployment.labels" . | nindent 4 }}
 spec:
   params:
-  - name: registry_url
+  - name: registryUrl
     type: string
-  - name: chart_name
+  - name: chartName
     type: string
-  - name: chart_version
+  - name: chartVersion
     type: string
   - description: Namespace where the chart will be deployed
     name: namespace
     type: string
-  - name: helm_chart_pull_type
+  - name: helmChartPullType
     type: string
   tasks:
   - name: tekton-task
     params:
-    - name: registry_url
-      value: $(params.registry_url)
-    - name: chart_name
-      value: $(params.chart_name)
-    - name: chart_version
-      value: $(params.chart_version)
+    - name: registryUrl
+      value: $(params.registryUrl)
+    - name: chartName
+      value: $(params.chartName)
+    - name: chartVersion
+      value: $(params.chartVersion)
     - name: namespace
       value: $(params.namespace)
-    - name: helm_chart_pull_type
-      value: $(params.helm_chart_pull_type)
+    - name: helmChartPullType
+      value: $(params.helmChartPullType)
     taskRef:
       name: {{ include "api-deployment.fullname" . }}-tekton-task

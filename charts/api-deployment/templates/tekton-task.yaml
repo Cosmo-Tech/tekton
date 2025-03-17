@@ -6,15 +6,15 @@ metadata:
   {{- include "api-deployment.labels" . | nindent 4 }}
 spec:
   params:
-  - name: registry_url
+  - name: registryUrl
     type: string
-  - name: chart_name
+  - name: chartName
     type: string
-  - name: chart_version
+  - name: chartVersion
     type: string
   - name: namespace
     type: string
-  - name: helm_chart_pull_type
+  - name: helmChartPullType
     type: string
   steps:
   - image: bitnami/kubectl:1.32.1
@@ -38,17 +38,17 @@ spec:
       #!/bin/sh
       cat /workspace/helm-secrets/.dockerconfigjson
       echo "Linting Helm chart..."
-      if [ "$(params.helm_chart_pull_type)" = "oci" ]; then
-        helm pull --registry-config /workspace/helm-secrets/.dockerconfigjson oci://$(params.registry_url)/$(params.chart_name) --version $(params.chart_version)
-        mkdir $(params.chart_name)
-        tar -xvzf $(params.chart_name)-$(params.chart_version).tgz -C $(params.chart_name) --strip-components=1
+      if [ "$(params.helmChartPullType)" = "oci" ]; then
+        helm pull --registry-config /workspace/helm-secrets/.dockerconfigjson oci://$(params.registryUrl)/$(params.chartName) --version $(params.chartVersion)
+        mkdir $(params.chartName)
+        tar -xvzf $(params.chartName)-$(params.chartVersion).tgz -C $(params.chartName) --strip-components=1
       else
-        helm repo add cosmotech https://$(params.registry_url)
+        helm repo add cosmotech https://$(params.registryUrl)
         helm repo update
-        helm pull cosmotech/$(params.chart_name) --version $(params.chart_version) --untar
+        helm pull cosmotech/$(params.chartName) --version $(params.chartVersion) --untar
       fi
       # Run helm lint and allow script to continue even if linting fails
-      helm lint ./$(params.chart_name) || true
+      helm lint ./$(params.chartName) || true
     volumeMounts:
     - mountPath: /workspace/helm-secrets
       name: helm-credentials
@@ -57,13 +57,13 @@ spec:
     script: |
       #!/bin/sh
       echo "Deploying Helm chart..."
-      if [ "$(params.helm_chart_pull_type)" = "oci" ]; then
-        helm upgrade --registry-config  /workspace/helm-secrets/.dockerconfigjson --install $(params.chart_name) oci://$(params.registry_url)/$(params.chart_name) \
-          --version $(params.chart_version) --namespace $(params.namespace) --values /workspace/helm-values/config.yaml
+      if [ "$(params.helmChartPullType)" = "oci" ]; then
+        helm upgrade --registry-config  /workspace/helm-secrets/.dockerconfigjson --install $(params.chartName) oci://$(params.registryUrl)/$(params.chartName) \
+          --version $(params.chartVersion) --namespace $(params.namespace) --values /workspace/helm-values/config.yaml
       else
-        helm repo add cosmotech https://$(params.registry_url)
+        helm repo add cosmotech https://$(params.registryUrl)
         helm repo update
-        helm upgrade --install $(params.chart_name) cosmotech/$(params.chart_name) --version $(params.chart_version) \
+        helm upgrade --install $(params.chartName) cosmotech/$(params.chartName) --version $(params.chartVersion) \
           --namespace $(params.namespace) --values /workspace/helm-values/config.yaml
       fi
     volumeMounts:

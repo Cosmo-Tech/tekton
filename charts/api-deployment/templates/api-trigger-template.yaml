@@ -6,11 +6,11 @@ metadata:
   {{- include "api-deployment.labels" . | nindent 4 }}
 spec:
   params:
-  - name: registry_url
-  - name: chart_name
-  - name: chart_version
+  - name: registryUrl
+  - name: chartName
+  - name: chartVersion
   - name: namespace
-  - name: helm_chart_pull_type
+  - name: helmChartPullType
   resourcetemplates:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
@@ -21,16 +21,16 @@ spec:
       params:
       - name: action
         value: $(tt.body.action)
-      - name: registry_url
-        value: $(tt.params.registry_url)
-      - name: chart_name
-        value: $(tt.params.chart_name)
-      - name: chart_version
-        value: $(tt.params.chart_version)
+      - name: registryUrl
+        value: $(tt.params.registryUrl)
+      - name: chartName
+        value: $(tt.params.chartName)
+      - name: chartVersion
+        value: $(tt.params.chartVersion)
       - name: namespace
         value: $(tt.params.namespace)
-      - name: helm_chart_pull_type
-        value: $(tt.params.helm_chart_pull_type)
+      - name: helmChartPullType
+        value: $(tt.params.helmChartPullType)
       pipelineRef:
         name: {{ include "api-deployment.fullname" . }}-api-pipeline
       serviceAccountName: {{ include "api-deployment.fullname" . }}-tekton-sa

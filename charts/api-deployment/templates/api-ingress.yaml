@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "api-deployment.fullname" . }}-api-ingress
-{{ if ne .Values.ingress_type "ngrok" }}
+{{ if ne .Values.ingressType "ngrok" }}
   labels:
     owner: csm-platform
   {{- include "api-deployment.labels" . | nindent 4 }}
@@ -19,14 +19,14 @@ metadata:
     nginx.org/client-max-body-size: "0"
 {{ end }}
 spec:
-{{ if eq .Values.ingress_type "ngrok" }}
+{{ if eq .Values.ingressType "ngrok" }}
   ingressClassName: ngrok
 {{ else }}
   ingressClassName: nginx
 {{ end }}
   rules:
-{{ if eq .Values.ingress_type "ngrok" }}
-  - host: {{ .Values.ngrok_host }}
+{{ if eq .Values.ingressType "ngrok" }}
+  - host: {{ .Values.ngrokHost }}
 {{ else }}
   - host: {{ .Values.host }}
 {{ end }}
@@ -38,9 +38,9 @@ spec:
             name: el-{{ include "api-deployment.fullname" . | trunc 50 | trimSuffix "-" }}-listener
             port:
               number: 8080
-        path: /{{ .Values.host_path_context }}/
+        path: /{{ .Values.hostPathContext }}/
         pathType: Prefix
-{{ if ne .Values.ingress_type "ngrok" }}
+{{ if ne .Values.ingressType "ngrok" }}
   tls:
   - hosts:
     - {{ .Values.host }}
