@@ -32,7 +32,7 @@ spec:
       type: string
       default: "false"
   tasks:
-    - name: deployApi
+    - name: deploy-api
       params:
         - name: registryUrl
           value: $(params.registryUrl)
@@ -46,9 +46,9 @@ spec:
           value: $(params.helmChartPullType)
       taskRef:
         name: {{ include "api-deployment.fullname" . }}-tekton-task
-    - name: runCypressTests
+    - name: run-cypress-tests
       runAfter:
-        - deployApi
+        - deploy-api
       when:
         - input: $(params.runCypressTests)
           operator: in
