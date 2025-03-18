@@ -54,6 +54,9 @@ spec:
             value: $(tt.params.runCypressTests) # Added missing parameter
         pipelineRef:
           name: {{ include "api-deployment.fullname" . }}-pipeline
+        workspaces:
+          - name: helm-workspace
+            emptyDir: {}
         serviceAccountName: {{ include "api-deployment.fullname" . }}-tekton-sa
         podTemplate:
           {{- with .Values.tolerations }}
