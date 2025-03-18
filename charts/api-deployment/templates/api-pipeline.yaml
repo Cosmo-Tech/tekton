@@ -5,6 +5,8 @@ metadata:
   labels:
   {{- include "api-deployment.labels" . | nindent 4 }}
 spec:
+  workspaces:
+    - name: helm-workspace
   params:
     - name: registryUrl
       type: string
@@ -46,6 +48,10 @@ spec:
           value: $(params.useOciRegistry)
       taskRef:
         name: {{ include "api-deployment.fullname" . }}-tekton-task
+      workspaces:  
+        - name: helm-workspace
+          workspace: helm-workspace  
+
     - name: run-cypress-tests
       runAfter:
         - deploy-api
