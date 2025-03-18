@@ -46,6 +46,7 @@ spec:
         helm repo add cosmotech https://$(params.registryUrl)
         helm repo update
         helm pull cosmotech/$(params.chartName) --version $(params.chartVersion) --untar
+        ls -alh
       fi
     volumeMounts:
     - mountPath: /workspace/helm-secrets
@@ -55,6 +56,7 @@ spec:
     script: |
       #!/bin/sh
       echo "Linting Helm chart..."
+      ls -alh
       helm lint ./$(params.chartName) || true
     volumeMounts:
     - mountPath: /workspace/helm-secrets
@@ -64,6 +66,7 @@ spec:
     script: |
       #!/bin/sh
       echo "Deploying Helm chart..."
+      ls -alh
       helm upgrade --install $(params.chartName) ./$(params.chartName) \
         --version $(params.chartVersion) --namespace $(params.namespace) --values /workspace/helm-values/config.yaml
     volumeMounts:
