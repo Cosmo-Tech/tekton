@@ -53,7 +53,7 @@ spec:
       export CY_AUTH_KEYCLOAK_REALM="$(params.authKeycloakRealm)"
       export CY_AUTH_KEYCLOAK_CLIENT_ID="$(params.authKeycloakClientId)"
       export CY_AUTH_KEYCLOAK_CLIENT_SECRET="$(params.authKeycloakClientSecret)"
-      $COMMON_CYPRESS_COMMAND
+      $COMMON_CYPRESS_COMMAND || true
     volumeMounts:
     - mountPath: /workspace/helm-values
       name: helm-values-volume

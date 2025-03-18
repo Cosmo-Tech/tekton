@@ -14,7 +14,7 @@ spec:
       type: string
     - name: namespace
       type: string
-    - name: helmChartPullType
+    - name: useOciRegistry
       type: string
     - name: webAppRepoUrl
       type: string
@@ -42,8 +42,8 @@ spec:
           value: $(params.chartVersion)
         - name: namespace
           value: $(params.namespace)
-        - name: helmChartPullType
-          value: $(params.helmChartPullType)
+        - name: useOciRegistry
+          value: $(params.useOciRegistry)
       taskRef:
         name: {{ include "api-deployment.fullname" . }}-tekton-task
     - name: run-cypress-tests

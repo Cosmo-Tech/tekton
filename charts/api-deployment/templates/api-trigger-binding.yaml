@@ -16,8 +16,8 @@ spec:
       value: {{ .Values.chartVersion }}
     - name: namespace
       value: {{ .Release.Namespace }}
-    - name: helmChartPullType
-      value: {{ .Values.helmChartPullType }}
+    - name: useOciRegistry
+      value: {{ .Values.useOciRegistry }}
     - name: webAppRepoUrl
       value: {{ .Values.webAppRepoUrl }}
     - name: webAppRevision

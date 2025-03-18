@@ -10,7 +10,7 @@ spec:
     - name: chartName
     - name: chartVersion
     - name: namespace
-    - name: helmChartPullType
+    - name: useOciRegistry
     - name: webAppRepoUrl         # Added missing parameter
     - name: webAppRevision        # Added missing parameter
     - name: cypressBaseUrl        # Added missing parameter
@@ -36,8 +36,8 @@ spec:
             value: $(tt.params.chartVersion)
           - name: namespace
             value: $(tt.params.namespace)
-          - name: helmChartPullType
-            value: $(tt.params.helmChartPullType)
+          - name: useOciRegistry
+            value: $(tt.params.useOciRegistry)
           - name: webAppRepoUrl
             value: $(tt.params.webAppRepoUrl)    # Added missing parameter
           - name: webAppRevision

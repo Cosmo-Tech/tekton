@@ -14,8 +14,9 @@ spec:
     type: string
   - name: namespace
     type: string
-  - name: helmChartPullType
+  - name: useOciRegistry
     type: string
+    default: "false"
   steps:
   - image: bitnami/kubectl:1.32.1
     name: kubectl
@@ -32,13 +33,12 @@ spec:
       name: helm-values-volume
     - mountPath: /workspace/helm-secrets
       name: helm-credentials
-  - image: alpine/helm:3.12.3
-    name: lint-chart
+  - image: alpine/helm:3.16.3
+    name: pull-chart
     script: |
       #!/bin/sh
-      cat /workspace/helm-secrets/.dockerconfigjson
-      echo "Linting Helm chart..."
-      if [ "$(params.helmChartPullType)" = "oci" ]; then
+      echo "Pulling Helm chart..."
+      if [ "$(params.useOciRegistry)" = "true" ]; then
         helm pull --registry-config /workspace/helm-secrets/.dockerconfigjson oci://$(params.registryUrl)/$(params.chartName) --version $(params.chartVersion)
         mkdir $(params.chartName)
         tar -xvzf $(params.chartName)-$(params.chartVersion).tgz -C $(params.chartName) --strip-components=1
@@ -47,7 +47,14 @@ spec:
         helm repo update
         helm pull cosmotech/$(params.chartName) --version $(params.chartVersion) --untar
       fi
-      # Run helm lint and allow script to continue even if linting fails
+    volumeMounts:
+    - mountPath: /workspace/helm-secrets
+      name: helm-credentials
+  - image: alpine/helm:3.16.3
+    name: lint-chart
+    script: |
+      #!/bin/sh
+      echo "Linting Helm chart..."
       helm lint ./$(params.chartName) || true
     volumeMounts:
     - mountPath: /workspace/helm-secrets
@@ -57,15 +64,8 @@ spec:
     script: |
       #!/bin/sh
       echo "Deploying Helm chart..."
-      if [ "$(params.helmChartPullType)" = "oci" ]; then
-        helm upgrade --registry-config  /workspace/helm-secrets/.dockerconfigjson --install $(params.chartName) oci://$(params.registryUrl)/$(params.chartName) \
-          --version $(params.chartVersion) --namespace $(params.namespace) --values /workspace/helm-values/config.yaml
-      else
-        helm repo add cosmotech https://$(params.registryUrl)
-        helm repo update
-        helm upgrade --install $(params.chartName) cosmotech/$(params.chartName) --version $(params.chartVersion) \
-          --namespace $(params.namespace) --values /workspace/helm-values/config.yaml
-      fi
+      helm upgrade --install $(params.chartName) ./$(params.chartName) \
+        --version $(params.chartVersion) --namespace $(params.namespace) --values /workspace/helm-values/config.yaml
     volumeMounts:
     - mountPath: /workspace/helm-values
       name: helm-values-volume
