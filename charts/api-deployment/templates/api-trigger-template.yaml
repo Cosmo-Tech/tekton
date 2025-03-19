@@ -9,6 +9,7 @@ spec:
     - name: registryUrl
     - name: chartName
     - name: chartVersion
+    - name: releaseName
     - name: namespace
     - name: useOciRegistry
     - name: webAppRepoUrl         # Added missing parameter
@@ -34,6 +35,8 @@ spec:
             value: $(tt.params.chartName)
           - name: chartVersion
             value: $(tt.params.chartVersion)
+          - name: releaseName
+            value: $(tt.params.releaseName)
           - name: namespace
             value: $(tt.params.namespace)
           - name: useOciRegistry

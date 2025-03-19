@@ -13,6 +13,7 @@ hostPathContext: yourHostPathContext
 registryUrl: yourRegistryUrl
 chartName: yourChartName
 chartVersion: yourChartVersion
+releaseName: yourReleaseName
 nodeSelector:
   "cosmotech.com/tier": "tekton"
   "kubernetes.io/os": "linux"

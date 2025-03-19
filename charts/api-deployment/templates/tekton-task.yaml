@@ -12,6 +12,8 @@ spec:
     type: string
   - name: chartVersion
     type: string
+  - name: releaseName
+    type: string
   - name: namespace
     type: string
   - name: useOciRegistry
@@ -69,7 +71,7 @@ spec:
       #!/bin/sh
       echo "Deploying Helm chart..."
       ls -alh $(workspaces.helm-workspace.path)
-      helm upgrade --install $(params.chartName) $(workspaces.helm-workspace.path)/$(params.chartName) \
+      helm upgrade --install $(params.releaseName) $(workspaces.helm-workspace.path)/$(params.chartName) \
         --version $(params.chartVersion) --namespace $(params.namespace) --values /workspace/helm-values/config.yaml
     volumeMounts:
     - mountPath: /workspace/helm-values

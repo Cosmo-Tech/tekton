@@ -14,6 +14,8 @@ spec:
       type: string
     - name: chartVersion
       type: string
+    - name: releaseName
+      type: string
     - name: namespace
       type: string
     - name: useOciRegistry
@@ -30,7 +32,7 @@ spec:
       type: string
     - name: authKeycloakClientSecret
       type: string
-    - name: runCypressTests   # ➡️ New parameter to control Cypress execution
+    - name: runCypressTests
       type: string
       default: "false"
   tasks:
@@ -42,6 +44,8 @@ spec:
           value: $(params.chartName)
         - name: chartVersion
           value: $(params.chartVersion)
+        - name: releaseName
+          value: $(params.releaseName)
         - name: namespace
           value: $(params.namespace)
         - name: useOciRegistry
@@ -58,7 +62,7 @@ spec:
       when:
         - input: $(params.runCypressTests)
           operator: in
-          values: ["true"]  # ➡️ Runs only if `runCypressTests` is "true"
+          values: ["true"]
       params:
         - name: webAppRepoUrl
           value: $(params.webAppRepoUrl)

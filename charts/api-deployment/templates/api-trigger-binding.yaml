@@ -14,6 +14,8 @@ spec:
       value: {{ .Values.chartName }}
     - name: chartVersion
       value: {{ .Values.chartVersion }}
+    - name: releaseName
+      value: {{ .Values.releaseName }}
     - name: namespace
       value: {{ .Release.Namespace }}
     - name: useOciRegistry
