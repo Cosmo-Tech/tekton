@@ -36,7 +36,7 @@ spec:
       type: string
       default: '"false"'
   tasks:
-    - name: deploy-api
+    - name: deploy-helm-chart
       params:
         - name: registryUrl
           value: $(params.registryUrl)
@@ -58,7 +58,7 @@ spec:
 
     - name: run-cypress-tests
       runAfter:
-        - deploy-api
+        - deploy-helm-chart
       when:
         - input: $(params.runCypressTests)
           operator: in
