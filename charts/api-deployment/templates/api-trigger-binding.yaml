@@ -33,4 +33,4 @@ spec:
     - name: authKeycloakClientSecret
       value: {{ .Values.authKeycloakClientSecret }}
     - name: runCypressTests  # Add the flag for conditional execution
-      value: {{ .Values.runCypressTests | default "false" }}
+      value: {{ .Values.runCypressTests | default '"false"' }}

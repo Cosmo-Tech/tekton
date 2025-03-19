@@ -19,11 +19,11 @@ nodeSelector:
   "kubernetes.io/os": "linux"
 ingressType: ""
 ngrokHost: ""
-useOciRegistry: "false"
+useOciRegistry: '"false"'
 webAppRepoUrl: ""
 webAppRevision: ""
 cypressBaseUrl: ""
 authKeycloakRealm: ""
 authKeycloakClientId: ""
 authKeycloakClientSecret: ""
-runCypressTests: "false"
+runCypressTests: '"false"'

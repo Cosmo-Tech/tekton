@@ -34,7 +34,7 @@ spec:
       type: string
     - name: runCypressTests
       type: string
-      default: "false"
+      default: '"false"'
   tasks:
     - name: deploy-api
       params:
