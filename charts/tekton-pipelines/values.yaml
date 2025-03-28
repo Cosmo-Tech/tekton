@@ -451,7 +451,7 @@ featureFlags:
   resultsFrom: termination-message
   runningInEnvironmentWithInjectedSidecars: "true"
   sendCloudeventsForRuns: "false"
-  setSecurityContext: "false"
+  setSecurityContext: "true"
   trustedResourcesVerificationNoMatchPolicy: ignore
 gitResolverConfig:
   apiTokenSecretKey: ""
